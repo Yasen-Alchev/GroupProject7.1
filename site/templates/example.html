@@ -1,0 +1,12 @@
+
+{% block head %}
+    <script defer src="{{url_for('static', filename='../static/js/minimal.js')}}"></script>
+{% endblock %}
+
+{% block body %}
+
+    {% if orders %}
+        <h1>{{orders}}</h1>
+    {% endif %}
+
+{% endblock %}

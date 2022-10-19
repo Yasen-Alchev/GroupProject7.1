@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Sensor Dashboard{% endblock %}
+
+{% block head %}
+    <script defer src="{{url_for('static', filename='../static/js/minimal.js')}}"></script>
+{% endblock %}
+
+{% block body %}
+   <h1>Hello {{data.firstname}}</h1>
+{% endblock %}
