@@ -1,0 +1,111 @@
+.pages-background {
+    margin: auto;
+    background-image: url('/static/images/pizza_background.jpg');
+    background-repeat: repeat;
+}
+
+.container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+}
+
+.box-shadow {
+    box-shadow: 0 3px 6px rgb(0 0 0 / 18%);
+}
+
+.item {
+    height: 12vw;
+    margin: 1vw;
+    text-align: justify;
+    font-size: 1em;
+    word-wrap: break-word;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.description {
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    background-color: #545a6296;
+    position: relative;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+}
+
+.pizza {
+    display: flex;
+    margin: 1vw;
+    flex-flow: column wrap;
+}
+
+.pizza-name {
+    font-family: "Roboto Condensed", sans-serif;
+    padding: 1.3vw;
+    padding-top: 0;
+    margin-top: -1vw;
+    text-align: left;
+    font-size: 2.5em;
+    font-weight: 500;
+}
+
+.price-badge {
+    position: relative;
+    user-select: none;
+    z-index: 2;
+    background: #fe9a24;
+    font-size: 2.5em;
+    right: -10px;
+    bottom: 0.75vw;
+    width: fit-content;
+    margin-right: 0vw;
+    margin-left: auto;
+    font-weight: 700;
+    display: block;
+    color: #fff;
+    padding: 8px 12px;
+    line-height: 1;
+    text-decoration: none;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.price-badge::before {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    right: 0;
+    border-top: 10px solid #a95200;
+    border-right: 10px solid transparent;
+}
+
+.pizza-info {
+    margin: auto;
+}
+
+.add-button {
+    display: block;
+    background: #7fb311;
+    color: #fff;
+    cursor: pointer;
+    font-size: 2.5em;
+    text-align: center;
+    border-radius: 7px;
+    transition: .25s ease;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 1.5;
+    padding: 0.5vw 5.3vw;
+    margin: 0.4vw;
+    border: none;
+    font-weight: 500;
+    border: 1px solid #7fb311;
+    user-select: none;
+}
+
+.add-button:hover {
+    background: #6f9c0d;
+}

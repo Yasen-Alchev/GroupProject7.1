@@ -1,27 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
-    <head>
-        <title>{% block title %}{% endblock %}</title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="/static/css/base.css" />
+    {% block head %}{% endblock %}
 
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=devie-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
 
-        <!--Add CSS from static/css/main.css-->
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<body>
 
-        <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <section class="hero is-primary is-fullheight pages-background" style="background-color: rgb(0 0 0 / 83%);">
+        <ol class="navbar-container">
+            {% if current_user.is_authenticated %}
+            <li>
+                <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+                    Logout
+                </a>
+            </li>
+            {% endif %}
+            {% if not current_user.is_authenticated %}
+            <li>
+                <a href="{{ url_for('auth.signup') }}" class="navbar-item">
+                    Sign Up
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('auth.login') }}" class="navbar-item">
+                    Login
+                </a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="{{ url_for('main.tracker') }}" class="navbar-item">
+                    Tracker
+                </a>
+            </li>
+            {% if current_user.is_authenticated %}
+            <li>
+                <a href="{{ url_for('main.profile') }}" class="navbar-item">
+                    Profile
+                </a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="{{ url_for('main.index') }}" class="navbar-item">
+                    Menu
+                </a>
+            </li>
+        </ol>
 
-        {% block head %}{% endblock %}
+        {% block body %}
+        {% endblock %}
 
-    </head>
-
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </section>
+</body>
 
 </html>

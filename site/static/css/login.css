@@ -1,0 +1,82 @@
+:root {
+    --grey: #777;
+    --white: #fff;
+    --form-white: #ECF0F1;
+    --blue: #3498DB;
+    --button-blue: #1F78B4;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--blue);
+    font-family: "Arial", sans-serif;
+    padding: 50px;
+}
+
+.container {
+    margin: 20px auto;
+    padding: 10px;
+    width: 300px;
+    height: 300px;
+    background-color: var(--white);
+    border-radius: 5px;
+}
+
+h1 {
+    width: 70%;
+    color: var(--grey);
+    font-size: 32px;
+    margin: 28px auto;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form {
+    margin: 0;
+    text-align: center;
+}
+
+input {
+    padding: 12px 0;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 2px solid transparent;
+    text-align: center;
+    width: 90%;
+    font-size: 16px;
+    transition: border .2s, background-color .2s;
+}
+
+form .field {
+    background-color: var(--form-white);
+}
+
+form .field:focus {
+    border: 2px solid var(--blue);
+}
+
+form .btn {
+    background-color: var(--blue);
+    color: var(--white);
+    line-height: 25px;
+    cursor: pointer;
+}
+
+form .btn:hover,
+form .btn:active {
+    background-color: var(--button-blue);
+    border: 2px solid var(--button-blue);
+}
+
+.forgot_password {
+    text-align: center;
+}
+
+.forgot_password a:link,
+.forgot_password a:visited {
+    font-size: 12px;
+    color: var(--grey);
+}

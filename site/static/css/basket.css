@@ -1,0 +1,124 @@
+.basket-wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    z-index: 5;
+    width: 410px;
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: 200;
+    position: fixed;
+    top: 11vw;
+    right: 0;
+    transform: translateX(325px);
+    transition: transform .25s linear;
+    text-decoration: none;
+    color: #fff;
+}
+
+.show-basket {
+    transform: translateX(0);
+    transition: transform .25s linear;
+}
+
+.basket-label {
+    border-bottom-left-radius: 7px;
+    border-top-left-radius: 7px;
+    display: flex;
+    flex-flow: row;
+    background: #fe9a24;
+    padding: 0 20px;
+}
+
+.basket-wrapper .basket-info-wrapper {
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    background: #fff;
+    position: relative;
+    right: -85px;
+    width: 325px;
+    height: fit-content;
+}
+
+.basket-order-list {
+    display: flex;
+    flex-direction: column;
+    margin: 1vw 0;
+}
+
+.empty-basket {
+    color: black;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+.btn-green {
+    width: 95%;
+    margin: 0.3vw auto;
+    display: block;
+    background: #7fb311;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 7px;
+    transition: .25s ease;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 1.5;
+    padding: 10px 15px;
+    border: none;
+    font-weight: 600;
+    border: 1px solid #7fb311;
+    user-select: none;
+}
+
+.basket-order-item {
+    display: flex;
+    flex-flow: row wrap;
+    color: black;
+    margin: 0.7vw;
+}
+.basket-price-item{
+    font-weight: 600;
+}
+
+.item-details {
+    margin-right: 0.4vw;
+    width: 68%;
+}
+
+.basket-remove-item {
+    margin: 0 0.1vw;
+}
+
+.basket-icon {
+    font-size: 1.5em;
+    margin-left: 0.4vw;
+}
+
+.basket-icon-container {
+    margin: 0.3vw 0;
+    width: 65px;
+}
+
+.basket-total-price-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.basket-total-price {
+    margin-right: 0.25vw;
+}
+
+.basket-total-price,
+.currency {
+    display: inline-block;
+    font-size: 1.15em;
+}
+
+.basket-title {
+    align-self: center;
+    margin: auto;
+    font-weight: 800;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
