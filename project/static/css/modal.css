@@ -12,15 +12,15 @@
     display: block;
     position: absolute;
     border-radius: 30px;
-    width: 35vw;
-    height: 40vw;
+    width: 35%;
+    height: 60%;
     background-color: #ffebcc;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    padding: 1vw;
-    border: 1vw solid #fe9a24;
+    padding: 1%;
+    border: 20px solid #fe9a24;
     color: black;
 }
 
@@ -31,13 +31,13 @@
 .modal-message, .modal-order-number{
     font-size: 2em;
     font-weight: 500;
-    margin: 2vw;
+    margin: 5%;
 }
 
 #modal-pay-button, #modal-close-button {
     cursor: pointer;
-    width: 14vw;
-    height: 3vw;
+    width: 45%;
+    height: 50%;
     font-size: 1.4em;
     color: white;
     font-weight: 500;
@@ -52,14 +52,14 @@
 .modal-buttons{
     display: flex;
     flex-flow: row wrap;
-    margin: 2vw;
-    height: 8vw;
+    margin: 5%;
+    height: 15%;
     align-items: center;
     justify-content: space-between;
 }
 
 .modal-order-info{
-    height: 28vw;
+    height: 75%;
 }
 
 .modal-order-items{

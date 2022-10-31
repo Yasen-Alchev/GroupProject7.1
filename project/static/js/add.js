@@ -18,12 +18,15 @@ addPizza = (data) => {
       console.log(result);
 
       let backet = $(".basket-order-list")[0];
+      let modal_backet = $(".modal-order-list")[0]
       backet.innerHTML = "";
+      modal_backet.innerHTML = "";
       let backet_total = $(".basket-total-price")[0];
 
       if(result == null){
         let new_item = `<div class="empty-basket" style="">Cart is empty!</div>`
         backet.insertAdjacentHTML("beforeend", new_item);
+        modal_backet.insertAdjacentHTML("beforeend", new_item);
         backet_total.innerHTML = "0.00";
         return;
       }
@@ -47,6 +50,7 @@ addPizza = (data) => {
             <span class="basket-price-item">` + value.price + `$</span>
         </li>`;
         backet.insertAdjacentHTML("beforeend", new_item);
+        modal_backet.insertAdjacentHTML("beforeend", new_item);
       };
     },
     error: function (result, status) {
@@ -109,16 +113,17 @@ removeItem = (data) => {
     data: JSON.stringify(params),
     contentType: "application/json",
     success: function (result) {
-      console.log(result);
-      item.remove();
-      let total = result["total"];
-      if(total == 0){
-        total = "0.00";
-        let backet = $(".basket-order-list")[0];
-        let new_item = `<div class="empty-basket" style="">Cart is empty!</div>`
-        backet.insertAdjacentHTML("beforeend", new_item);
-      }
-      $(".basket-total-price")[0].innerText = total;
+      // console.log(result);
+      // item.remove();
+      // let total = result["total"];
+      // if(total == 0){
+      //   total = "0.00";
+      //   let backet = $(".basket-order-list")[0];
+      //   let new_item = `<div class="empty-basket" style="">Cart is empty!</div>`
+      //   backet.insertAdjacentHTML("beforeend", new_item);
+      // }
+      // $(".basket-total-price")[0].innerText = total;
+      location.reload();
     },
     error: function (result, status) {
       console.log(result);
@@ -130,7 +135,6 @@ let modal = $("#modal")[0];
 
 showModal = () => {
   modal.classList.add("show-modal");
-  querySelectorAll("*:not(.modal)");
 }
 hideModal = () => {
   modal.classList.remove("show-modal");
