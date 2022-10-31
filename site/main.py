@@ -5,13 +5,19 @@ from sqlalchemy import func
 from . import db
 import json
 
+ORDERING = 0
+ORDER_PLACED = 1
+ORDER_PREPARING = 2
+ORDER_QUALITY_CHECK = 3
+ORDER_COMPLETED = 4
+
 main = Blueprint('main', __name__)
 
 def update_session_cart():
     if session.get("cart") == None:
         session["cart"] = {}
     set_session_user()
-    current_order = Order.query.filter_by(user_id = session["UserID"], completed = 0).first()
+    current_order = Order.query.filter_by(user_id = session["UserID"], status = ORDERING).first()
     
     if current_order:
         cart = {}
@@ -47,7 +53,6 @@ def set_session_user():
 @main.route('/')
 def index():
     update_session_cart()
-    print(f'session["cart"] = {session["cart"]}')
     return render_template('index.html', cart=session["cart"])
 
 @main.route('/add_pizza', methods=["POST"])
@@ -66,9 +71,9 @@ def add_pizza():
 
     user = User.query.filter_by(id = session["UserID"]).first()
 
-    current_order = Order.query.filter_by(user_id = user.id, completed = 0).first()
+    current_order = Order.query.filter_by(user_id = user.id, status = ORDERING).first()
     if not current_order:
-            current_order = Order(order_number = next_order_number, user_id = user.id, completed = False)
+            current_order = Order(order_number = next_order_number, user_id = user.id, status = False)
             db.session.add(current_order)        
             db.session.commit()
 
@@ -90,13 +95,18 @@ def profile():
 
 @main.route('/tracker')
 def tracker():
-    return render_template('tracker.html')
+    if "json" in request.args:
+        data = json.loads(request.args.get('json'))
+        order_number = data["order_number"]
+    else:
+        order_number = "Please Enter your order number"
+    return render_template('tracker.html', order_number = order_number)
 
 @main.route('/remove_item', methods=["POST"])
 def remove_item():
     item = request.get_json()
 
-    current_order = Order.query.filter_by(user_id = session["UserID"], completed = 0).first()
+    current_order = Order.query.filter_by(user_id = session["UserID"], status = ORDERING).first()
     delete_q = Pizza.__table__.delete().where(Pizza.order_id == current_order.id, Pizza.name == item['name'])
 
     db.session.execute(delete_q)
@@ -110,4 +120,17 @@ def remove_item():
 
     return {"total" : total}
 
+@main.route('/complete_order', methods=["POST"])
+def complete_order():
 
+    current_order = Order.query.filter_by(user_id = session["UserID"], status = ORDERING).first()
+    if current_order:
+        current_order.status = ORDER_PLACED
+        db.session.commit()
+
+        session.pop("cart")
+        update_session_cart()
+
+        return {"url": url_for("main.tracker"), "order_number" : current_order.order_number}
+    else:
+        return {"url": url_for("main.index"), "order_number" : 0}

@@ -22,7 +22,7 @@ class Order(UserMixin, db.Model):
     order_number = db.Column(db.Integer, unique=True, nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
     pizzas = db.relationship("Pizza", backref="order")
-    completed = db.Column(db.Integer, nullable=False, default=0)
+    status = db.Column(db.Integer, nullable=False, default=0)
 
     def toJson(self):
         return {
@@ -30,7 +30,7 @@ class Order(UserMixin, db.Model):
             "order_number": f"{self.order_number}",
             "user_id": f"{self.user_id}",
             # "pizzas": f"{self.pizzas}",
-            "completed": f"{self.completed}"
+            "status": f"{self.status}"
         }
 
     def __repr__(self) -> str:
@@ -38,7 +38,7 @@ class Order(UserMixin, db.Model):
             f"\torder_number: {self.order_number}\n" + \
             f"\tuser_id: {self.user_id}\n" + \
             f"\tpizzas: {self.pizzas}\n" + \
-            f"\tcompleted: {self.completed}\n>" 
+            f"\status: {self.status}\n>" 
 
 class Pizza(UserMixin, db.Model):
     id = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)

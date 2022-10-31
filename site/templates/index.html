@@ -1,123 +1,167 @@
-{% extends "base.html" %} {% block title %} Orders {% endblock %} {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}" />
-<link rel="stylesheet" href="{{ url_for('static', filename='css/basket.css') }}" />
-<script defer src="/static/js/add.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+{% extends "base.html" %}
+
+{% block title %} Orders {% endblock %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/basket.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}" />
+
+    <script defer src="/static/js/add.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
 
 {% endblock %}
 
 {% block body %}
 
-<div class="basket-wrapper">
-    <div class="basket-label">
-        <div onclick="toggleCart()" class="basket-icon-container">
-            <div class="basket-icon">
-                <i class="fas fa-shopping-basket"></i>
-            </div>
-            <div class="basket-total-price-wrapper">
+    <div id="modal" class="modal-container">
+        <div class="modal box-shadow">
+            <div class="modal-order-info">
+                <div class="modal-message">Please place your Credit Card on the reader!</div>
                 {% if cart %}
-                <div class="basket-total-price">{{ cart.total }}</div>
-                {% else %}
-                <div class="basket-total-price">0.00</div>
+                <div class="modal-order-number">Your Order Number: <b>1234</b></div>
                 {% endif %}
-                <span class="currency">$</span>
+                <div class="modal-order-items">
+                    <ul>
+                {% if cart %}
+                    {% for pizza in cart %}
+                        {% if pizza != "total" %}
+                        <li class="basket-order-item">
+                            <div class="item-details">
+                                <a href="#" onclick="removeItem(this);return false;" class="basket-remove-item">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                                <span class="basket-amount-item">{{cart[pizza].count}}</span>
+                                x
+                                <span class="basket-name-item">{{pizza}}</span>
+                            </div>
+                            <span class="basket-price-item">{{cart[pizza].price}} $</span>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-basket" style="">Cart is empty!</div>
+                {% endif %}
+            </ul>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button id="modal-pay-button" onclick="completeOrder()">Simulate Credit Card Paying</button>
+                <button id="modal-close-button" onclick="hideModal()">Close cart</button>
             </div>
         </div>
-        <div class="basket-title">Your order</div>
     </div>
-    <div class="basket-info-wrapper">
-        <ul class="basket-order-list">
-            {% if cart %}
-                {% for pizza in cart %}
-                    {% if not loop.last %}
-                    <li class="basket-order-item">
-                        <div class="item-details">
-                            <a href="#" onclick="removeItem(this);return false;" class="basket-remove-item">
-                                <i class="fas fa-times"></i>
-                            </a>
-                            <span class="basket-amount-item">{{cart[pizza].count}}</span>
-                            x
-                            <span class="basket-name-item">{{pizza}}</span>
-                        </div>
-                        <span class="basket-price-item">{{cart[pizza].price}} $</span>
-                    </li>
+
+    <div class="basket-wrapper">
+        <div class="basket-label">
+            <div onclick="toggleCart()" class="basket-icon-container">
+                <div class="basket-icon">
+                    <i class="fas fa-shopping-basket"></i>
+                </div>
+                <div class="basket-total-price-wrapper">
+                    {% if cart %}
+                    <div class="basket-total-price">{{ cart.total }}</div>
+                    {% else %}
+                    <div class="basket-total-price">0.00</div>
                     {% endif %}
-                {% endfor %}
-            {% else %}
-                <div class="empty-basket" style="">Cart is empty!</div>
-            {% endif %}
-        </ul>
-        <a href="" class="btn-green">Complete order</a>
+                    <span class="currency">$</span>
+                </div>
+            </div>
+            <div class="basket-title">Your order</div>
+        </div>
+        <div class="basket-info-wrapper">
+            <ul class="basket-order-list">
+                {% if cart %}
+                    {% for pizza in cart %}
+                        {% if pizza != "total" %}
+                        <li class="basket-order-item">
+                            <div class="item-details">
+                                <a href="#" onclick="removeItem(this);return false;" class="basket-remove-item">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                                <span class="basket-amount-item">{{cart[pizza].count}}</span>
+                                x
+                                <span class="basket-name-item">{{pizza}}</span>
+                            </div>
+                            <span class="basket-price-item">{{cart[pizza].price}} $</span>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-basket" style="">Cart is empty!</div>
+                {% endif %}
+            </ul>
+            <a href="#" onclick="showModal();return false;" class="btn-green">Complete order</a>
+        </div>
     </div>
-</div>
 
 {% endblock %}
 
 {% block content %}
-<div class="menu">
-    <div class="container">
-        <div class="pizza">
-            <div class="item" style="background-image: url('static/images/proshuto.png')"></div>
-            <div class="description box-shadow">
-                <div class="price-badge">
-                    <span class="product-price" name="product_price">19.99</span> $
-                </div>
-                <div class="pizza-name" name="product_name">Proshuto</div>
-                <div class="pizza-info">
-                    <button class="add-button" onclick="addPizza(this)">Add</button>
-                </div>
-            </div>
-        </div>
-        <div class="pizza">
-            <div class="item" style="background-image: url('static/images/margarita.png')"></div>
-            <div class="description box-shadow">
-                <div class="price-badge">
-                    <span class="product-price" name="product_price">19.99</span> $
-                </div>
-                <div class="pizza-name" name="product_name">Margarita</div>
-                <div class="pizza-info">
-                    <button class="add-button" onclick="addPizza(this)">Add</button>
+    <div class="menu">
+        <div class="container">
+            <div class="pizza">
+                <div class="item" style="background-image: url('static/images/proshuto.png')"></div>
+                <div class="description box-shadow">
+                    <div class="price-badge">
+                        <span class="product-price" name="product_price">19.99</span> $
+                    </div>
+                    <div class="pizza-name" name="product_name">Proshuto</div>
+                    <div class="pizza-info">
+                        <button class="add-button" onclick="addPizza(this)">Add</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="pizza">
-            <div class="item" style="background-image: url('static/images/capricious.png')"></div>
-            <div class="description box-shadow">
-                <div class="price-badge">
-                    <span class="product-price" name="product_price">19.99</span> $
-                </div>
-                <div class="pizza-name" name="product_name">Capricious</div>
-                <div class="pizza-info">
-                    <button class="add-button" onclick="addPizza(this)">Add</button>
-                </div>
-            </div>
-        </div>
-        <div class="pizza">
-            <div class="item" style="background-image: url('static/images/formagi.png')"></div>
-            <div class="description box-shadow">
-                <div class="price-badge">
-                    <span class="product-price" name="product_price">19.99</span> $
-                </div>
-                <div class="pizza-name" name="product_name">Formagi</div>
-                <div class="pizza-info">
-                    <button class="add-button" onclick="addPizza(this)">Add</button>
+            <div class="pizza">
+                <div class="item" style="background-image: url('static/images/margarita.png')"></div>
+                <div class="description box-shadow">
+                    <div class="price-badge">
+                        <span class="product-price" name="product_price">19.99</span> $
+                    </div>
+                    <div class="pizza-name" name="product_name">Margarita</div>
+                    <div class="pizza-info">
+                        <button class="add-button" onclick="addPizza(this)">Add</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="pizza">
-            <div class="item" style="background-image: url('static/images/calzones.png')"></div>
-            <div class="description box-shadow">
-                <div class="price-badge">
-                    <span class="product-price" name="product_price">19.99</span> $
+            <div class="pizza">
+                <div class="item" style="background-image: url('static/images/capricious.png')"></div>
+                <div class="description box-shadow">
+                    <div class="price-badge">
+                        <span class="product-price" name="product_price">19.99</span> $
+                    </div>
+                    <div class="pizza-name" name="product_name">Capricious</div>
+                    <div class="pizza-info">
+                        <button class="add-button" onclick="addPizza(this)">Add</button>
+                    </div>
                 </div>
-                <div class="pizza-name" name="product_name">Calzones</div>
-                <div class="pizza-info">
-                    <button class="add-button" onclick="addPizza(this)">Add</button>
+            </div>
+            <div class="pizza">
+                <div class="item" style="background-image: url('static/images/formagi.png')"></div>
+                <div class="description box-shadow">
+                    <div class="price-badge">
+                        <span class="product-price" name="product_price">19.99</span> $
+                    </div>
+                    <div class="pizza-name" name="product_name">Formagi</div>
+                    <div class="pizza-info">
+                        <button class="add-button" onclick="addPizza(this)">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="pizza">
+                <div class="item" style="background-image: url('static/images/calzones.png')"></div>
+                <div class="description box-shadow">
+                    <div class="price-badge">
+                        <span class="product-price" name="product_price">19.99</span> $
+                    </div>
+                    <div class="pizza-name" name="product_name">Calzones</div>
+                    <div class="pizza-info">
+                        <button class="add-button" onclick="addPizza(this)">Add</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
 {% endblock %}

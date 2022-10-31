@@ -125,3 +125,36 @@ removeItem = (data) => {
     },
   });
 }
+
+let modal = $("#modal")[0];
+
+showModal = () => {
+  modal.classList.add("show-modal");
+  querySelectorAll("*:not(.modal)");
+}
+hideModal = () => {
+  modal.classList.remove("show-modal");
+}
+
+completeOrder = () => {
+  hideModal();
+
+  let params = "";
+
+  $.ajax({
+    type: "POST",
+    url: "/complete_order",
+    data: JSON.stringify(params),
+    contentType: "application/json",
+    success: function (result) {
+      console.log(result);
+      // window.location.replace(result["url"]);
+      window.location = result["url"] + '?json=' + encodeURIComponent(JSON.stringify(result));
+    },
+    error: function (result, status) {
+      console.log(result);
+    },
+  });
+
+}
+
