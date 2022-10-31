@@ -54,6 +54,7 @@ class Pizza(UserMixin, db.Model):
         return f"\n\n<Pizza:\n" + \
             f"\tid: {self.id}\n" + \
             f"\tname: {self.name}\n" + \
+            f"\tprice: {self.price}\n" + \
             f"\tingridients: {self.ingridients}\n" + \
             f"\talergies: {self.alergies}\n" + \
             f"\tmodifications: {self.modifications}\n" + \

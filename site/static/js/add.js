@@ -7,7 +7,7 @@ addPizza = (data) => {
   let price = parent.querySelector(".product-price").innerText;
   let pizza_name = parent.querySelector(".pizza-name").innerText;
 
-  var params = { price: price, pizza_name: pizza_name };
+  let params = { price: price, pizza_name: pizza_name };
 
   $.ajax({
     type: "POST",
@@ -16,7 +16,38 @@ addPizza = (data) => {
     contentType: "application/json",
     success: function (result) {
       console.log(result);
-      window.location.replace('/', cart=result);
+
+      let backet = $(".basket-order-list")[0];
+      backet.innerHTML = "";
+      let backet_total = $(".basket-total-price")[0];
+
+      if(result == null){
+        let new_item = `<div class="empty-basket" style="">Cart is empty!</div>`
+        backet.insertAdjacentHTML("beforeend", new_item);
+        backet_total.innerHTML = "0.00";
+        return;
+      }
+
+      for (const [key, value] of Object.entries(result)) {
+        if(key == "total"){
+          backet_total.innerHTML = value;
+          return;
+        }
+        let new_item =`
+        <li class="basket-order-item">
+            <div class="item-details">
+                <a href="#" onclick="removeItem(this);return false;" class="basket-remove-item">
+                    <i class="fas fa-times"></i>
+                </a>
+                <span class="basket-amount-item">` + value.count + `</span>
+                x
+                <span class="basket-name-item">` + key + `</span>
+            </div>
+      
+            <span class="basket-price-item">` + value.price + `$</span>
+        </li>`;
+        backet.insertAdjacentHTML("beforeend", new_item);
+      };
     },
     error: function (result, status) {
       console.log(result);
@@ -60,4 +91,37 @@ function rotateAnimation(elem, speed) {
     rotateAnimation(elem, speed);
   }, speed);
 
+}
+
+
+removeItem = (data) => {
+
+  let item = data.closest(".basket-order-item");
+  let amount = $(item).find(".basket-amount-item")[0].innerText;
+  let name = $(item).find(".basket-name-item")[0].innerText;
+  let price = $(item).find(".basket-price-item")[0].innerText.replace("$", "").replace(" ", "");
+  let params = { "amount": amount, "name": name, "price": price };
+  console.log(params);
+
+  $.ajax({
+    type: "POST",
+    url: "/remove_item",
+    data: JSON.stringify(params),
+    contentType: "application/json",
+    success: function (result) {
+      console.log(result);
+      item.remove();
+      let total = result["total"];
+      if(total == 0){
+        total = "0.00";
+        let backet = $(".basket-order-list")[0];
+        let new_item = `<div class="empty-basket" style="">Cart is empty!</div>`
+        backet.insertAdjacentHTML("beforeend", new_item);
+      }
+      $(".basket-total-price")[0].innerText = total;
+    },
+    error: function (result, status) {
+      console.log(result);
+    },
+  });
 }

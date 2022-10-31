@@ -29,25 +29,23 @@
     <div class="basket-info-wrapper">
         <ul class="basket-order-list">
             {% if cart %}
-            {% for pizza in cart %}
-            <h1>{{pizza}}</h1>
-            {% if not loop.last %}
-            <li class="basket-order-item">
-                <div class="item-details">
-                    <a href="" class="basket-remove-item">
-                        <i class="fas fa-times"></i>
-                    </a>
-                    <span class="basket-amount-item">{{cart[pizza].count}}</span>
-                    x
-                    <span class="basket-name-item">{{pizza}}</span>
-                </div>
-
-                <span class="basket-price-item">{{cart[pizza].price}} $</span>
-            </li>
-            {% endif %}
-            {% endfor %}
+                {% for pizza in cart %}
+                    {% if not loop.last %}
+                    <li class="basket-order-item">
+                        <div class="item-details">
+                            <a href="#" onclick="removeItem(this);return false;" class="basket-remove-item">
+                                <i class="fas fa-times"></i>
+                            </a>
+                            <span class="basket-amount-item">{{cart[pizza].count}}</span>
+                            x
+                            <span class="basket-name-item">{{pizza}}</span>
+                        </div>
+                        <span class="basket-price-item">{{cart[pizza].price}} $</span>
+                    </li>
+                    {% endif %}
+                {% endfor %}
             {% else %}
-            <div class="empty-basket" style="">Cart is empty!</div>
+                <div class="empty-basket" style="">Cart is empty!</div>
             {% endif %}
         </ul>
         <a href="" class="btn-green">Complete order</a>
@@ -57,9 +55,6 @@
 {% endblock %}
 
 {% block content %}
-<h4>
-    {{cart}}aaa
-</h4>
 <div class="menu">
     <div class="container">
         <div class="pizza">

@@ -7,10 +7,34 @@ import json
 
 main = Blueprint('main', __name__)
 
-@main.route('/')
-def index():
+def update_session_cart():
+    if session.get("cart") == None:
+        session["cart"] = {}
+    set_session_user()
+    current_order = Order.query.filter_by(user_id = session["UserID"], completed = 0).first()
+    
+    if current_order:
+        cart = {}
+        for pizza in current_order.pizzas:
+            if pizza.name in cart:
+                cart[pizza.name]["count"] += 1
+                cart[pizza.name]["price"] += pizza.price
+                cart[pizza.name]["price"] = round(cart[pizza.name]["price"], 2)
+            else:
+                cart[pizza.name] = {}
+                cart[pizza.name]["count"] = 1
+                cart[pizza.name]["price"] = round(pizza.price, 2)
+            if not "total" in cart:
+                cart["total"] = 0.0
+            cart["total"] += pizza.price
+            cart["total"] = round(cart["total"], 2)
+
+        session["cart"] = cart
+        print(f"cart = {cart}")
+
+
+def set_session_user():
     if session.get("UserID") == None or User.query.filter_by(id = session["UserID"]).first() == None:
-        print("here")
         if current_user.is_authenticated:
             session["UserID"] = current_user.id
         else:
@@ -19,6 +43,11 @@ def index():
             db.session.commit()
             session["UserID"] = user.id
         print(f"user with ID: {session['UserID']} created")
+
+@main.route('/')
+def index():
+    update_session_cart()
+    print(f'session["cart"] = {session["cart"]}')
     return render_template('index.html', cart=session["cart"])
 
 @main.route('/add_pizza', methods=["POST"])
@@ -47,23 +76,9 @@ def add_pizza():
     db.session.add(new_pizza)
     db.session.commit()
 
-    cart = {"total": 0.0}
-    for pizza in current_order.pizzas:
-        if pizza.name in cart:
-            cart[pizza.name]["count"] += 1
-            cart[pizza.name]["price"] += pizza.price
-            cart[pizza.name]["price"] = round(cart[pizza.name]["price"], 2)
-        else:
-            cart[pizza.name] = {}
-            cart[pizza.name]["count"] = 1
-            cart[pizza.name]["price"] = round(pizza.price, 2)
-        cart["total"] += pizza.price
-        cart["total"] = round(cart["total"], 2)
+    update_session_cart()
     
-    session["cart"] = cart
-
-    print(f"cart = {cart}")
-    return cart
+    return session["cart"]
 
 @main.route('/profile')
 @login_required
@@ -77,5 +92,22 @@ def profile():
 def tracker():
     return render_template('tracker.html')
 
+@main.route('/remove_item', methods=["POST"])
+def remove_item():
+    item = request.get_json()
+
+    current_order = Order.query.filter_by(user_id = session["UserID"], completed = 0).first()
+    delete_q = Pizza.__table__.delete().where(Pizza.order_id == current_order.id, Pizza.name == item['name'])
+
+    db.session.execute(delete_q)
+    db.session.commit()
+
+    update_session_cart()
+    if "total" in session["cart"]:
+        total = session["cart"]["total"]
+    else:
+        total = "0.00"
+
+    return {"total" : total}
 
 
