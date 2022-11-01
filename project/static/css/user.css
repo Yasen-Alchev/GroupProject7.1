@@ -80,7 +80,6 @@ li a {
 .usercontent {
     display: flex;
     justify-content: column;
-    align-items: center;
     border: 1px solid black;
 }
 
@@ -92,9 +91,49 @@ img {
 }
 
 .pic {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 98px;
+    padding: 15px;
     height: 120px;
     width: 120px;
 }
+
+
+.orderwrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 15px;
+    margin-inline: 40px;
+}
+
+.order1{
+    background: white;
+    border-radius: 7px;
+    border: 2px solid black;
+    padding: 10px;
+}
+.order2{
+    background: white;
+    border-radius: 7px;
+    border: 2px solid black;
+    padding: 10px;
+}
+.order3{
+    background: white;
+    border-radius: 7px;
+    border: 2px solid black;
+    padding: 10px;
+}
+.order4{
+    background: white;
+    border-radius: 7px;
+    border: 2px solid black;
+    padding: 10px;
+}
+.order5{
+    background: white;
+    border-radius: 7px;
+    border: 2px solid black;
+    padding: 10px;
+}
+
