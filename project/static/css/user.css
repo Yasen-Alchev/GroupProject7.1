@@ -1,6 +1,6 @@
 body {
     font-family: 'Montserrat', sans-serif;
-    background-image: url(/static/images/marioandluigi.jpg);
+    background-image: url(/project/static/images/pizza_background.jpg);
     background-repeat:repeat;
     background-size: cover;
     margin: 0px;
@@ -52,4 +52,49 @@ li a {
 .heading {
     text-align: center;
     text-decoration-line: underline;
+}
+
+.userbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.user-info {
+    background:  rgba(255, 255, 255, 0.747);
+    border: 3px solid black; 
+    margin-top: 30px;
+    width: 300px; 
+    top: 500px;
+    
+}
+
+.user-orders {
+    background: rgba(255, 255, 255, 0.747);
+    border: 3px solid black; 
+    margin-top: 30px;
+    width: 850px; 
+    height: 500px;
+}
+
+.usercontent {
+    display: flex;
+    justify-content: column;
+    align-items: center;
+    border: 1px solid black;
+}
+
+
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.pic {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 98px;
+    height: 120px;
+    width: 120px;
 }
