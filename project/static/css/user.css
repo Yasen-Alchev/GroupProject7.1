@@ -66,7 +66,6 @@ li a {
     margin-top: 30px;
     width: 300px; 
     top: 500px;
-    
 }
 
 .user-orders {
@@ -77,23 +76,38 @@ li a {
     height: 500px;
 }
 
+.userpfp {
+    
+    min-height: 25vh;
+    display: flex;
+    justify-content: center;
+}
+
 .usercontent {
     display: flex;
-    justify-content: column;
-    border: 1px solid black;
+    flex-direction: column;
+    padding: 30px;
+    
 }
 
-
-
+.username {
+    text-align: center;
+    background: white;
+    width:300px;
+    margin-inline: 60px;
+    margin-top: 13px;
+}
 img {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 50%;
+    border: 4px solid black;
+    background: white;
 }
+
 
 .pic {
-    padding: 15px;
-    height: 120px;
-    width: 120px;
+    margin-top: 10px;
 }
 
 
