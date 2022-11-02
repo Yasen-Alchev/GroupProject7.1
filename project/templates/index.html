@@ -21,13 +21,15 @@
         <div class="modal-order-info">
             <div class="modal-message">Please place your Credit Card on the reader!</div>
             {% if cart %}
-            <div class="modal-order-number">Your Order Number: <b>1234</b></div>
+            <div class="modal-order-number" style="display: block;">Your Order Number: <b id="modal-order-number">{{cart["order_number"]}}</b></div>
+            {% else %}
+            <div class="modal-order-number" style="display: none;">Your Order Number: <b id="modal-order-number">None</b></div>
             {% endif %}
             <div class="modal-order-items">
                 <ul class="modal-order-list">
                     {% if cart %}
                     {% for pizza in cart %}
-                    {% if pizza != "total" %}
+                    {% if pizza != "total" and pizza != "order_number" %}
                     <li class="basket-order-item">
                         <div class="item-details">
                             <a href="#" onclick="removeItem(this);return false;" class="basket-remove-item">
@@ -75,7 +77,7 @@
         <ul class="basket-order-list">
             {% if cart %}
             {% for pizza in cart %}
-            {% if pizza != "total" %}
+            {% if pizza != "total" and pizza != "order_number" %}
             <li id="basket-list" class="basket-order-item">
                 <div class="item-details">
                     <a href="#" onclick="removeItem(this);return false;" class="basket-remove-item">

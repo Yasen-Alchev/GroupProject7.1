@@ -32,6 +32,8 @@ def update_session_cart():
                 cart[pizza.name]["price"] = round(pizza.price, 2)
             if not "total" in cart:
                 cart["total"] = 0.0
+            if not "order_number" in cart:
+                cart["order_number"] = current_order.order_number
             cart["total"] += pizza.price
             cart["total"] = round(cart["total"], 2)
 
