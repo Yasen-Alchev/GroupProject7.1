@@ -17,7 +17,7 @@ def start_smart_oven(cooking_time):
     board.digital_pin_write(4, 1)
     board.digital_pin_write(7, 0)
 
-    for _ in range(0, cooking_time):
+    for _ in range(cooking_time):
         time_left -= 1
         time.sleep(1)
         data = { "status": "Pizza in oven", "time_left": time_left }
@@ -27,7 +27,7 @@ def start_smart_oven(cooking_time):
     post_data = requests.post(url, json = data)
     board.digital_pin_write(4, 0)
 
-    for _ in range(0, 5):
+    for _ in range(5):
         board.digital_pin_write(5, 1)
         time.sleep(0.5)
         board.digital_pin_write(5, 0)
