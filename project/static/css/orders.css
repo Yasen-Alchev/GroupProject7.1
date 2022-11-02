@@ -1,24 +1,31 @@
 table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  color: #ffffff;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    color: #ffffff;
 }
 
-td, th {
-  border: 1px solid #ffffff;
-  text-align: left;
-  padding: 8px;
+section.hero.is-primary.is-fullheight.pages-background {
+    margin: auto;
+    background-image: url('/static/images/pizza_background.jpg');
+    background-repeat: repeat;
 }
 
-tr:nth-child(odd) {
-  background-color:#000000
+td,
+th {
+    border: 1px solid #ffffff;
+    text-align: left;
+    padding: 8px;
 }
 
 tr:nth-child(even) {
-  background-color: #222222;
+    background-color: #ac630c2e;
+}
+
+tr:nth-child(odd) {
+    background-color: #3f171780;
 }
 
 .white-text {
-  color: #ffffff;
+    color: #ffffff;
 }
