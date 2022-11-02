@@ -1,47 +1,64 @@
-{% extends "base.html" %} {% block title %} Tracker {% endblock %} {% block head %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/tracker.css') }}" />  
+{% extends "base.html" %} {% block title %} Tracker {% endblock %} {% block head
+%}
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/tracker.css') }}"
+/>
+
+<script defer src="/static/js/tracker.js"></script>
 {% endblock %} {% block content %}
 
 <div>
-    <div class="card">
-        <div class="top">
-            <div class="order">
-                <b>ORDER: </b><span class="order-number">{{order_number}}</span>
-            </div>
-        </div>
-        <!-- Add class 'active' to progress -->
-        <div>
-            <div>
-                <ul id="progressbar">
-                    <li class="active step0"></li>
-                    <li class="active step0"></li>
-                    <li class="active step0"></li>
-                    <li class="step0"></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="states">
-            <div class="item">
-                <img src="/static/images/order_placed.png" alt="Order Placed" style="width: 70px;">
-                <div class="description">Order Placed</div>
-            </div>
-            <div class="item">
-                <img src="/static/images/preparing.png" alt="Order Preparing">
-                <div class="description">Preparing</div>
-            </div>
-            <div class="item">
-                <img src="/static/images/quality_check.png" alt="Checking Quality">
-                <div class="description">Checking Quality</div>
-            </div>
-            <div class="item">
-                <img src="/static/images/order_ready.png" alt="Order Ready" style="width: 120px;">
-                <div class="description">Order Ready</div>
-            </div>
-        </div>
-        
+  <div class="card">
+    <div class="top">
+      <div class="order">
+        <b>ORDER: </b><span class="order-number">{{order_number}}</span>
+      </div>
     </div>
+    <!-- Add class 'active' to progress -->
+    <div>
+      <div>
+        <ul id="progressbar">
+          {% for i in range(4) %} {% if order_status > i %}
+          <li class="active step0"></li>
+          {% else %}
+          <li class="step0"></li>
+          {% endif %} {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="states">
+      <div class="item">
+        <img
+          src="/static/images/order_placed.png"
+          alt="Order Placed"
+          style="width: 70px"
+        />
+        <div class="description">Order Placed</div>
+      </div>
+      <div class="item">
+        <img src="/static/images/preparing.png" alt="Order Preparing" />
+        <div class="description">Preparing</div>
+      </div>
+      <div class="item">
+        <img src="/static/images/quality_check.png" alt="Checking Quality" />
+        <div class="description">Checking Quality</div>
+      </div>
+      <div class="item">
+        <img
+          src="/static/images/order_ready.png"
+          alt="Order Ready"
+          style="width: 120px"
+        />
+        <div class="description">Order Ready</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

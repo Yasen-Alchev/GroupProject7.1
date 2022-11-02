@@ -1,6 +1,6 @@
 body {
     background-image: url(/static/images/pizza_background.jpg);
-    background-repeat:repeat;
+    background-repeat: repeat;
     background-size: cover;
     margin: 0px;
 }
@@ -13,20 +13,20 @@ body {
 }
 
 .user-info {
-    background:  rgba(255, 255, 255, 0.747);
-    border: 3px solid black; 
+    background: rgba(255, 255, 255, 0.747);
+    border: 3px solid black;
     margin-top: 30px;
-    width: 300px; 
+    width: 300px;
     top: 500px;
 }
 
 .user-orders {
     background: rgba(255, 255, 255, 0.747);
-    border: 3px solid black; 
+    border: 3px solid black;
     margin-top: 30px;
-    width: 850px; 
+    width: 850px;
     height: 635px;
-    color:#000000;
+    color: #000000;
 }
 
 .userpfp {
@@ -45,10 +45,11 @@ body {
 .username {
     text-align: center;
     background: white;
-    width:300px;
+    width: 300px;
     margin-inline: 60px;
     margin-top: 13px;
 }
+
 img {
     max-width: 150px;
     max-height: 150px;
@@ -57,11 +58,9 @@ img {
     background: white;
 }
 
-
 .pic {
     margin-top: 10px;
 }
-
 
 .orderwrap {
     display: flex;
@@ -72,31 +71,35 @@ img {
     margin-inline: 40px;
 }
 
-.order1{
+.order1 {
     background: white;
     border-radius: 7px;
     border: 2px solid black;
     padding: 10px;
 }
-.order2{
+
+.order2 {
     background: white;
     border-radius: 7px;
     border: 2px solid black;
     padding: 10px;
 }
-.order3{
+
+.order3 {
     background: white;
     border-radius: 7px;
     border: 2px solid black;
     padding: 10px;
 }
-.order4{
+
+.order4 {
     background: white;
     border-radius: 7px;
     border: 2px solid black;
     padding: 10px;
 }
-.order5{
+
+.order5 {
     background: white;
     border-radius: 7px;
     border: 2px solid black;

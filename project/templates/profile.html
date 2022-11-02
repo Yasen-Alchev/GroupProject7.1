@@ -3,6 +3,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}" />  
 {% endblock %}{% block content %}
+
+<h1>{{data['message']}}</h1>
+
+
 <div class="userbox">
   <div class="user-info">
       <div class="userpfp">
