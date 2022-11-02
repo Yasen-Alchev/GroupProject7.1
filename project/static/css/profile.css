@@ -1,63 +1,15 @@
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-image: url(/project/static/images/pizza_background.jpg);
+    background-image: url(/static/images/pizza_background.jpg);
     background-repeat:repeat;
     background-size: cover;
     margin: 0px;
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
-  
-li {
-    float: right;
-}
-  
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-.logo {
-    display: flex;
-    position: absolute;
-    gap: 4px;
-    margin-top: 8px;
-    color: white;
-    font-size: 150%;
-    font-weight: 600;
-}
-
-.mario {
-    color: red;
-}
-
-.and {
-    font-size: 70%;
-    margin-top: 6px;
-}
-
-.luigi {
-    color: green;
-}
-
-.heading {
-    text-align: center;
-    text-decoration-line: underline;
 }
 
 .userbox {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    text-align: left;
 }
 
 .user-info {
@@ -66,7 +18,6 @@ li a {
     margin-top: 30px;
     width: 300px; 
     top: 500px;
-    
 }
 
 .user-orders {
@@ -74,26 +25,41 @@ li a {
     border: 3px solid black; 
     margin-top: 30px;
     width: 850px; 
-    height: 500px;
+    height: 635px;
+    color:#000000;
+}
+
+.userpfp {
+    min-height: 25vh;
+    display: flex;
+    justify-content: center;
 }
 
 .usercontent {
     display: flex;
-    justify-content: column;
-    border: 1px solid black;
+    flex-direction: column;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
-
-
+.username {
+    text-align: center;
+    background: white;
+    width:300px;
+    margin-inline: 60px;
+    margin-top: 13px;
+}
 img {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 50%;
+    border: 4px solid black;
+    background: white;
 }
+
 
 .pic {
-    padding: 15px;
-    height: 120px;
-    width: 120px;
+    margin-top: 10px;
 }
 
 
@@ -137,3 +103,6 @@ img {
     padding: 10px;
 }
 
+input {
+    border-radius: 7px;
+}

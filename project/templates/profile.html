@@ -1,7 +1,62 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block head %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}" />  
+{% endblock %}{% block content %}
+<div class="userbox">
+  <div class="user-info">
+      <div class="userpfp">
+          <div class="pic">
+              <img src="/static/images/toad.png" alt="">
+          </div>
+      </div>
 
-{% block content %}
-<h1 class="title">
-  Welcome, {{name}}!
-</h1>
+      <div class="usercontent">
+          <label for="fname">First name:</label>
+          <input type="text" id="fname" name="fname" value="Toad" >
+          <label for="lname">Last name:</label>
+          <input type="text" id="lname" name="lname" value="Toaderson">
+          <label for="email">Email:</label>
+          <input type="text" id="email" name="email" value="toaddamushroom@peach.com">
+          <label for="fav">Favorite pizza</label>
+          <input type="text" id="fav" name="fav" value="Pizza Tonno">
+      </div>
+  </div>
+
+  <div class="user-orders">
+      <div class="orderwrap">
+          <div class="order1">
+              14:44, Oct 31 2022
+              <div class="pepperoni">1x Margarita pizza (no cheese)</div>
+              <div class="prosciutto">2x Formagi pizza (extra Formagi)</div>
+              Total: 59.97$
+          </div>
+
+          <div class="order2">
+              12:16, Oct 22 2022
+              <div class="pepperoni">1x Calzone</div>
+              Total: 19.99$
+          </div>
+
+          <div class="order3">
+              16:20, Oct 11 2022
+              <div class="pepperoni">1x Capricious</div>
+              <div class="prosciutto">4x Prosciutto pizza (add ketchup)</div>
+              Total: 99.95$
+          </div>
+
+          <div class="order4">
+              21:34, Sep 27 2022
+              <div class="prosciutto">2x Prosciutto pizza (extra prosciutto)</div>
+              Total: 39.98$
+          </div>
+
+          <div class="order5">
+              17:04, Sep 21 2022
+              <div class="pizza">1x Margarita</div>
+              Total: 19.99$
+          </div>
+      </div>
+  </div>
+</div>
 {% endblock %}
