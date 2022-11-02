@@ -8,7 +8,6 @@ db = SQLAlchemy()
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-
 def create_app():
     app = Flask(__name__)
 

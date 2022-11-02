@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from .models import User, Order, Pizza
 from sqlalchemy import func 
 from . import db
-import json, requests
+import json
 
 ORDERING = 0
 ORDER_PLACED = 1
@@ -106,11 +106,12 @@ def tracker():
         if order:
             order.status = data["status"]
             db.session.commit()
+            socketio.emit("reload", "haha", broadcast=True)
         # requests.get(url = request.base_url, params = data)
         return "OK", 200
     
     else:
-
+        
         order_status = 0
         order_number = "Please Enter your order number"
 
