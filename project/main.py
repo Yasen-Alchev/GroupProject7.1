@@ -101,19 +101,27 @@ def tracker():
     if request.method == 'POST':
         data = request.get_json()
         print(f"data = {data}")
-        order = Order.query.filter_by(order_number = data["order_number"])
-        requests.get(url = request.base_url, params = data)
+        order = Order.query.filter_by(order_number = data["order_number"]).first()
+        print(f"track order: {order}")
+        if order:
+            order.status = data["status"]
+            db.session.commit()
+        # requests.get(url = request.base_url, params = data)
         return "OK", 200
     
     else:
 
+        order_status = 0
+        order_number = "Please Enter your order number"
+
         if "json" in request.args:
             data = json.loads(request.args.get('json'))
+            print(f"get_ data{data}")
             order_number = data["order_number"]
-            order_status = data["order_status"]
-        else:
-            order_number = "Please Enter your order number"
-            order_status = 0
+
+            order = Order.query.filter_by(order_number = order_number).first()
+            if order:
+                order_status = order.status
 
         return render_template('tracker.html', order_number = order_number, order_status = order_status)
 
