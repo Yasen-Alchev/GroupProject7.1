@@ -28,6 +28,16 @@
                 </a>
             </li>
             {% endif %}
+            <li>
+                <a href="{{ url_for('main.orders') }}" class="navbar-item">
+                    Orders
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('main.dashboard') }}" class="navbar-item">
+                    Dashboard
+                </a>
+            </li>
             {% if not current_user.is_authenticated %}
             <li>
                 <a href="{{ url_for('auth.signup') }}" class="navbar-item">

@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-
-    <link rel="stylesheet" href="/static/css/customerscreen.css">
-
-</head>
-
-
-<body>
-
+{% extends "base.html" %}{% block head %}
+<link rel="stylesheet" href="/static/css/dashboard.css">
+{% endblock %} {% block content %}
 <table>
   <tr>
-    <th>Order Number</th>
-    <th>Status</th>
+    <th class="white-text">Order Number</th>
+    <th class="white-text">Status</th>
   </tr>
   <tr>
     <td>6</td>
@@ -35,9 +27,4 @@
     <td>Order Placed</td>
   </tr>
 </table>
-
-</body>
-</html>
-
-
-
+{% endblock %}
