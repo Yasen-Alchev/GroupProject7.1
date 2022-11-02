@@ -151,3 +151,11 @@ def complete_order():
                 "order_status" : current_order.status }
     else:
         return {"url": url_for("main.index"), "order_number" : 0}
+
+@main.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+@main.route('/orders')
+def orders():
+    return render_template('orders.html')
