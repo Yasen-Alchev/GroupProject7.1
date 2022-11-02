@@ -1,4 +1,5 @@
 v.DS_Store
+*.db
 .env
 .flaskenv
 *.pyc

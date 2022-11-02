@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from .models import User, Order, Pizza
 from sqlalchemy import func 
 from . import db
-import json
+import json, requests
 
 ORDERING = 0
 ORDER_PLACED = 1
@@ -32,6 +32,8 @@ def update_session_cart():
                 cart[pizza.name]["price"] = round(pizza.price, 2)
             if not "total" in cart:
                 cart["total"] = 0.0
+            if not "order_number" in cart:
+                cart["order_number"] = current_order.order_number
             cart["total"] += pizza.price
             cart["total"] = round(cart["total"], 2)
 
@@ -91,16 +93,29 @@ def profile():
 
     # print(f"Orders: {Order.query.all()}")
 
-    return render_template('profile.html', name=current_user.name)
-
-@main.route('/tracker')
+    return render_template('profile.html')
+    
+@main.route('/tracker', methods=["GET", "POST"])
 def tracker():
-    if "json" in request.args:
-        data = json.loads(request.args.get('json'))
-        order_number = data["order_number"]
+
+    if request.method == 'POST':
+        data = request.get_json()
+        print(f"data = {data}")
+        order = Order.query.filter_by(order_number = data["order_number"])
+        requests.get(url = request.base_url, params = data)
+        return "OK", 200
+    
     else:
-        order_number = "Please Enter your order number"
-    return render_template('tracker.html', order_number = order_number)
+
+        if "json" in request.args:
+            data = json.loads(request.args.get('json'))
+            order_number = data["order_number"]
+            order_status = data["order_status"]
+        else:
+            order_number = "Please Enter your order number"
+            order_status = 0
+
+        return render_template('tracker.html', order_number = order_number, order_status = order_status)
 
 @main.route('/remove_item', methods=["POST"])
 def remove_item():
@@ -131,6 +146,8 @@ def complete_order():
         session.pop("cart")
         update_session_cart()
 
-        return {"url": url_for("main.tracker"), "order_number" : current_order.order_number}
+        return {"url": url_for("main.tracker"),
+                "order_number" : current_order.order_number,
+                "order_status" : current_order.status }
     else:
         return {"url": url_for("main.index"), "order_number" : 0}
