@@ -90,10 +90,8 @@ def add_pizza():
 @main.route('/profile')
 @login_required
 def profile():
-
-    # print(f"Orders: {Order.query.all()}")
-
-    return render_template('profile.html')
+    user = User.query.filter_by(id = session["UserID"]).first()
+    return render_template('profile.html', user=user)
     
 @main.route('/tracker', methods=["GET", "POST"])
 def tracker():
@@ -106,7 +104,6 @@ def tracker():
         if order:
             order.status = data["status"]
             db.session.commit()
-            socketio.emit("reload", "haha", broadcast=True)
         # requests.get(url = request.base_url, params = data)
         return "OK", 200
     

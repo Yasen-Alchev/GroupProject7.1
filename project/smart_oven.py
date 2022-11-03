@@ -7,7 +7,7 @@ PIZZA_IN_OVEN = 2 # baking - preparing step
 PIZZA_IS_DONE = 3 # pizza baked - quality check step
 OVEN_IS_OFF = 4 # the pizza has finished the quality check step and is ready
 
-board = CustomPymata4(com_port = "COM4")
+board = CustomPymata4(com_port = "COM3")
 board.set_pin_mode_digital_output(4)
 board.set_pin_mode_digital_output(5)
 board.set_pin_mode_digital_output(7)

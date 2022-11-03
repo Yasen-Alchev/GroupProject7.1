@@ -13,22 +13,31 @@
       </div>
 
       <div class="usercontent">
-          <label for="fname">First name:</label>
-          <input type="text" id="fname" name="fname" value="Toad" >
-          <label for="lname">Last name:</label>
-          <input type="text" id="lname" name="lname" value="Toaderson">
+          <label for="fname">User name:</label>
+          {% if user %}
+            <input type="text" id="fname" name="fname" value="{{user.name}}" >
+          {% else %}
+            <input type="text" id="fname" name="fname" value="Toad" >
+          {% endif %}
+          {# <label for="lname">Last name:</label>
+          <input type="text" id="lname" name="lname" value="Toaderson"> #}
           <label for="email">Email:</label>
+          {% if user %}
+          <input type="text" id="email" name="email" value="{{user.email}}">
+          {% else %}
           <input type="text" id="email" name="email" value="toaddamushroom@peach.com">
+          {% endif %}
+
           <label for="fav">Favorite pizza</label>
-          <input type="text" id="fav" name="fav" value="Pizza Tonno">
+          <input type="text" id="fav" name="fav" value="Margarita pizza">
       </div>
   </div>
 
   <div class="user-orders">
       <div class="orderwrap">
           <div class="order">
-              <div class="order-pizza"><span class="order-pizza-amount">1x</span> Margarita pizza (no cheese)</div>
-              <div class="order-pizza"><span class="order-pizza-amount">2x</span> Formagi pizza (extra Formagi)</div>
+              <div class="order-pizza"><span class="order-pizza-amount">1x</span> Margarita pizza</div>
+              <div class="order-pizza"><span class="order-pizza-amount">2x</span> Formagi pizza</div>
               <div class="order-total">Total: 59.97$</div>
           </div>
 
@@ -39,12 +48,12 @@
 
           <div class="order">
             <div class="order-pizza"><span class="order-pizza-amount">2x</span> Capricious</div>
-            <div class="order-pizza"><span class="order-pizza-amount">4x</span> Prosciutto pizza (add ketchup)</div>
+            <div class="order-pizza"><span class="order-pizza-amount">4x</span> Prosciutto pizza</div>
             <div class="order-total">Total: 99.95$</div>
           </div>
 
           <div class="order">
-            <div class="order-pizza"><span class="order-pizza-amount">2x</span> Prosciutto pizza (extra prosciutto)</div>
+            <div class="order-pizza"><span class="order-pizza-amount">2x</span> Prosciutto pizza</div>
             <div class="order-total">Total: 39.98$</div>
           </div>
 
